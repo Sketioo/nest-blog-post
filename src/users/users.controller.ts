@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   DefaultValuePipe,
   Get,
@@ -7,6 +8,7 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { CreateUserDto } from './dtos/create-user.dto';
 
 @Controller('users')
 export class UsersController {
@@ -23,7 +25,10 @@ export class UsersController {
   }
 
   @Post()
-  public createUser() {
+  public createUser(@Body() createUserDto: CreateUserDto) {
+    console.log(createUserDto);
+    console.log(createUserDto instanceof CreateUserDto);
+    console.log('user created!');
     return `You sent a post request to user endpoint`;
   }
 }
