@@ -6,9 +6,10 @@ import { UsersService } from './users/providers/users.service';
 import { PostsModule } from './posts/posts.module';
 import { PostsController } from './posts/posts.controller';
 import { PostsService } from './posts/providers/posts.service';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [UsersModule, PostsModule],
+  imports: [UsersModule, PostsModule, AuthModule],
   controllers: [AppController, PostsController],
   providers: [AppService, UsersService, PostsService],
 })
