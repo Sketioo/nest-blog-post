@@ -9,12 +9,13 @@ import {
   Query,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
+import { GetUsersDtoParam } from './dtos/get-users-param.dto';
 
 @Controller('users')
 export class UsersController {
-  @Get(':id')
+  @Get(':id?')
   public getUser(
-    @Param('id', ParseIntPipe) id: number | undefined,
+    @Param() id: GetUsersDtoParam | undefined,
     @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
   ) {
