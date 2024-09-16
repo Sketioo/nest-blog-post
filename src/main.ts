@@ -3,6 +3,23 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
+/**
+ * Bootstrap the Nest application.
+ *
+ * The following configurations are set up in this method:
+ *
+ * - ValidationPipe is set up as a global pipe with the following settings:
+ *   - `whitelist` is set to `true` to strip out any properties that are not
+ *     explicitly declared in the DTOs.
+ *   - `forbidNonWhitelisted` is set to `true` to throw an exception if any
+ *     properties are passed in that are not declared in the DTOs.
+ *   - `transform` is set to `true` to automatically transform the incoming
+ *     data to the correct types based on the DTOs.
+ *
+ * - Swagger/OpenAPI documentation is set up.
+ *
+ * - The application is set to listen on port 8081.
+ */
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(
