@@ -9,6 +9,7 @@ import { PostsService } from './posts/providers/posts.service';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/user.entity';
+import { Post } from './posts/post.entity';
 
 @Module({
   imports: [
@@ -25,7 +26,7 @@ import { User } from './users/user.entity';
         username: 'postgres',
         password: '270303',
         database: 'db-post',
-        entities: [User],
+        entities: [User, Post],
         synchronize: true,
       }),
     }),
