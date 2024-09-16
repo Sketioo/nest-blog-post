@@ -10,6 +10,8 @@ import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './users/user.entity';
 import { Post } from './posts/post.entity';
+import { TagsModule } from './tags/tags.module';
+import { MetaOptionsModule } from './meta-options/meta-options.module';
 
 @Module({
   imports: [
@@ -26,10 +28,13 @@ import { Post } from './posts/post.entity';
         username: 'postgres',
         password: '270303',
         database: 'db-post',
-        entities: [User, Post],
+        // entities: [User, Post],
+        autoLoadEntities: true,
         synchronize: true,
       }),
     }),
+    TagsModule,
+    MetaOptionsModule,
   ],
   controllers: [AppController, PostsController],
   providers: [AppService, UsersService, PostsService],

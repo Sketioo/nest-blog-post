@@ -15,7 +15,7 @@ import {
 import { postType } from '../enums/post-type.enum';
 import { postStatus } from '../enums/post-status.enum';
 import { Type } from 'class-transformer';
-import { CreatePostMetaOptionsDto } from './create-post-meta-options.dto';
+import { CreatePostMetaOptionsDto } from '../../meta-options/dtos/create-post-meta-options.dto';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreatePostDto {
@@ -39,7 +39,7 @@ export class CreatePostDto {
 
   @ApiProperty({ example: 'my-first-post', description: 'The slug' })
   @IsString()
-  @MaxLength(255)
+  @MaxLength(512)
   @IsNotEmpty()
   @Matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, {
     message:
