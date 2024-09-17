@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Get, Patch, Post } from '@nestjs/common';
 import { PostsService } from './providers/posts.service';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreatePostDto } from './dtos/create-post.dto';
@@ -10,8 +10,8 @@ export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
   @Get(':userId?')
-  getPosts(@Param('userId') userId: number) {
-    return this.postsService.findAll(userId);
+  getPosts() {
+    return this.postsService.findAll();
   }
 
   @ApiOperation({

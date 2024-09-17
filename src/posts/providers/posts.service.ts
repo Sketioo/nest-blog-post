@@ -20,8 +20,8 @@ export class PostsService {
     @InjectRepository(MetaOption)
     private readonly metaOptionsRepository: Repository<MetaOption>,
   ) {}
-  public findAll(userId: number) {
-    console.log(userId);
+  public findAll() {
+    return this.postsRepository.find();
   }
 
   public async create(@Body() createPostDto: CreatePostDto) {
