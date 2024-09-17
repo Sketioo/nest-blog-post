@@ -1,6 +1,9 @@
 import { AuthService } from 'src/auth/providers/auth.service';
-import { GetUsersDtoParam } from './../dtos/get-users-param.dto';
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { Body, forwardRef, Inject, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from '../user.entity';
+import { Repository } from 'typeorm';
+import { CreateUserDto } from '../dtos/create-user.dto';
 
 /**
  * Class to connect to Users table and performs business operation
@@ -15,7 +18,15 @@ export class UsersService {
   constructor(
     @Inject(forwardRef(() => AuthService))
     private readonly authService: AuthService,
+    @InjectRepository(User)
+    private readonly usersRepository: Repository<User>,
   ) {}
+
+  public async create(createUserDto: CreateUserDto) {
+    const user = this.usersRepository.create(createUserDto);
+
+    return await this.usersRepository.save(user);
+  }
 
   /**
    * Fetched a list of registered users on the application
@@ -25,25 +36,7 @@ export class UsersService {
    * @param page The page number
    * @returns The list of users
    */
-  public findAll(
-    getUsersDtoParam: GetUsersDtoParam,
-    limit: number,
-    page: number,
-  ) {
-    const isAuth = this.authService.isAuth();
-    console.log(isAuth);
-
-    return [
-      {
-        name: 'John Doe',
-        email: 'john@mail.com',
-      },
-      {
-        name: 'Jane Doe',
-        email: 'jane@mail.com',
-      },
-    ];
-  }
+  public findAll() {}
 
   /**
    * Fetched a user by id
@@ -51,12 +44,8 @@ export class UsersService {
    * @param id The user id
    * @returns The user
    */
-  findOneById(id: number) {
-    return {
-      id: id,
-      name: 'John Doe',
-      email: 'john@mail.com',
-    };
+  findOne(id: number) {
+    return this.usersRepository.findOneBy({ id });
   }
 
   /**

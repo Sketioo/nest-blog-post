@@ -47,15 +47,12 @@ export class UsersController {
     @Query('limit', new DefaultValuePipe(10), ParseIntPipe) limit: number,
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
   ) {
-    return this.usersService.findAll(getUsersDtoParam, limit, page);
+    return this.usersService.findAll();
   }
 
   @Post()
   public createUser(@Body() createUserDto: CreateUserDto) {
-    console.log(createUserDto);
-    console.log(createUserDto instanceof CreateUserDto);
-    console.log('user created!');
-    return `You sent a post request to user endpoint`;
+    return this.usersService.create(createUserDto);
   }
 
   @Patch()

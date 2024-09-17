@@ -15,5 +15,6 @@ Content-Type: application/json
   "publishOn": "2024-10-01T12:00:00Z",
   "tags": ["tag1", "tag2", "tag3"],
   "metaOptions":
-    { "metaValue": "{\"sidebarEnabled\": true, \"footerActive\": true}" }
+    { "metaValue": "{\"sidebarEnabled\": true, \"footerActive\": true}" },
+  "authorId": 1
 }
