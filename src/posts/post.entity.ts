@@ -16,7 +16,6 @@ export class Post {
   @Column({
     type: 'varchar',
     length: 512,
-    unique: true,
     nullable: false,
   })
   title: string;
@@ -73,7 +72,9 @@ export class Post {
   //* Later for relationship
   tags: string[];
 
-  @OneToOne(() => MetaOption)
+  @OneToOne(() => MetaOption, {
+    cascade: true,
+  })
   @JoinColumn()
-  metaOptions: MetaOption;
+  metaOptions?: MetaOption;
 }

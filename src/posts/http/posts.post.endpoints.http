@@ -5,17 +5,15 @@ POST http://localhost:8081/posts
 Content-Type: application/json
 
 {
-  "title": "A Sample Post Title",
+  "title": "A Sample Post Title 2",
   "postType": "post",
-  "slug": "sample-post-slug",
+  "slug": "sample-post-slug-1",
   "status": "draft",
   "content": "This is a sample post content.",
   "schema": "{ \"title\": \"Sample Schema\" }",
   "featuredImgUrl": "https://example.com/image.jpg",
   "publishOn": "2024-10-01T12:00:00Z",
-  "tags": ["tag1", "tag2", "tag3"],
-  "metaOptions": [
-    { "key": "sidebarEnabled", "value": true },
-    { "key": "seoKeywords", "value": "keyword1, keyword2" }
-  ]
+  # "tags": ["tag1", "tag2", "tag3"],
+  "metaOptions":
+    { "metaValue": "{\"sidebarEnabled\": true, \"footerActive\": true}" }
 }
