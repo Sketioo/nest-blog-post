@@ -5,15 +5,15 @@ POST http://localhost:8081/posts
 Content-Type: application/json
 
 {
-  "title": "A Sample Post Title yo",
+  "title": "A Sample Post Title yoink",
   "postType": "post",
-  "slug": "sample-post-slug-2",
+  "slug": "sample-post-slug",
   "status": "draft",
   "content": "This is a sample post content.",
   "schema": "{ \"title\": \"Sample Schema\" }",
   "featuredImgUrl": "https://example.com/image.jpg",
   "publishOn": "2024-10-01T12:00:00Z",
-  "tags": ["tag1", "tag2", "tag3"],
+  "tags": [1],
   "metaOptions":
     { "metaValue": "{\"sidebarEnabled\": true, \"footerActive\": true}" },
   "authorId": 1

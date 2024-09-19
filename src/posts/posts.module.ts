@@ -6,6 +6,7 @@ import { Post } from './post.entity';
 import { MetaOption } from 'src/meta-options/meta-option.entity';
 import { MetaOptionsModule } from 'src/meta-options/meta-options.module';
 import { UsersModule } from 'src/users/users.module';
+import { TagsModule } from 'src/tags/tags.module';
 
 @Module({
   exports: [PostsService],
@@ -13,6 +14,7 @@ import { UsersModule } from 'src/users/users.module';
     TypeOrmModule.forFeature([Post, MetaOption]),
     MetaOptionsModule,
     UsersModule,
+    TagsModule,
   ],
   controllers: [PostsController],
   providers: [PostsService],

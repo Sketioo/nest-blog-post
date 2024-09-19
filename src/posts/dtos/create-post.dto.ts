@@ -88,13 +88,12 @@ export class CreatePostDto {
   publishOn?: Date;
 
   @ApiPropertyOptional({
-    example: ['nestjs', 'blog'],
+    description: 'Input the ids of the tags',
+    example: [1, 2],
   })
   @IsOptional()
   @IsArray()
-  @IsString({ each: true })
-  @MinLength(3, { each: true })
-  tags?: string[];
+  tags?: number[];
 
   @ApiPropertyOptional({
     type: 'object',

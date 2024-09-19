@@ -1,0 +1,11 @@
+
+POST http://localhost:8081/tags
+Content-Type: application/json
+
+{
+  "name": "Python",
+  "slug": "python-good",
+  "description": "This is a description for the new tag.",
+  "schema": "{\"type\": \"object\", \"properties\": {\"name\": {\"type\": \"string\"}}}",
+  "featuredImgUrl": "https://example.com/image.jpg"
+}

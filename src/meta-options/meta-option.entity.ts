@@ -9,7 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity()
+@Entity('meta_options')
 export class MetaOption {
   @PrimaryGeneratedColumn()
   id: number;

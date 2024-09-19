@@ -7,5 +7,13 @@ Content-Type: application/json
 
 {
   "id": 1,
-  "title": "New Post"
+  "title": "Updated Post Title",
+  "postType": "page",
+  "status": "published",
+  "content": "This is the updated post content.",
+  "schema": "{\"type\": \"object\", \"properties\": {\"name\": {\"type\": \"string\"}}}",
+  "featuredImgUrl": "https://example.com/updated-image.jpg",
+  "publishOn": "2024-09-20T00:00:00.000Z",
+  "tags": [1, 2],
+  "authorId": 2
 }
