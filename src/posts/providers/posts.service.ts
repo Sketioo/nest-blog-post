@@ -24,7 +24,12 @@ export class PostsService {
     private readonly usersService: UsersService,
   ) {}
   public findAll() {
-    return this.postsRepository.find();
+    return this.postsRepository.find({
+      relations: {
+        author: true,
+        metaOptions: true,
+      },
+    });
   }
 
   public async create(@Body() createPostDto: CreatePostDto) {
