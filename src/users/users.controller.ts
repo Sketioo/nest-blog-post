@@ -55,8 +55,11 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
-  @Patch()
-  public patchUser(@Body() patchUserDto: PatchUserDto) {
-    return patchUserDto;
+  @Patch(':id')
+  public patchUser(
+    @Param() getUsersDtoParam: GetUsersDtoParam,
+    @Body() patchUserDto: PatchUserDto,
+  ) {
+    return this.usersService.update(getUsersDtoParam.id, patchUserDto);
   }
 }

@@ -1,4 +1,9 @@
-import { Body, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Injectable,
+  RequestTimeoutException,
+} from '@nestjs/common';
 import { CreatePostDto } from '../dtos/create-post.dto';
 import { Repository } from 'typeorm';
 import { Post } from '../post.entity';
@@ -51,16 +56,68 @@ export class PostsService {
   }
 
   async update(patchPostDto: PatchPostDto): Promise<Post> {
+    let post = undefined;
+    let tags = undefined;
+    let author = undefined;
     // Find the post
-    const post = await this.postsRepository.findOne({
-      where: {
-        id: patchPostDto.id,
-      },
-    });
-    //FInd the tags
-    const tags = await this.tagsService.findMultipleTags(patchPostDto.tags);
+
+    try {
+      post = await this.postsRepository.findOne({
+        where: {
+          id: patchPostDto.id,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+      throw new RequestTimeoutException({
+        status_code: 408,
+        message: 'Cannot process this request, try again later',
+      });
+    }
+
+    if (!post) {
+      throw new BadRequestException({
+        status_code: 400,
+        message: 'Post not found',
+      });
+    }
+
+    //Find the tags
+    try {
+      tags = await this.tagsService.findMultipleTags(patchPostDto.tags);
+    } catch (error) {
+      console.log(error);
+      throw new RequestTimeoutException({
+        status_code: 408,
+        message: 'Cannot process this request, try again later',
+      });
+    }
+
+    if (!tags || tags.length !== patchPostDto.tags.length) {
+      throw new BadRequestException({
+        status_code: 400,
+        message: 'Tags not found',
+      });
+    }
+
     //Find the new author
-    const author = await this.usersService.findOne(patchPostDto.authorId);
+    try {
+      author = await this.usersService.findOne(patchPostDto.authorId);
+    } catch (error) {
+      console.log(error);
+      throw new RequestTimeoutException({
+        status_code: 408,
+        message: 'Cannot process this request, try again later',
+      });
+    }
+
+    if (!author) {
+      throw new BadRequestException({
+        status_code: 400,
+        message: 'Author not found',
+      });
+    }
+
     // Change the post property
     post.title = patchPostDto.title ?? post.title;
     post.postType = patchPostDto.postType ?? post.postType;
@@ -73,7 +130,15 @@ export class PostsService {
     post.author = author;
     post.tags = tags;
     // Save the changes
-    return await this.postsRepository.save(post);
+    try {
+      return await this.postsRepository.save(post);
+    } catch (error) {
+      console.log(error);
+      throw new RequestTimeoutException({
+        status_code: 408,
+        message: 'Cannot process this request, try again later',
+      });
+    }
   }
 
   public async delete(id: number) {
