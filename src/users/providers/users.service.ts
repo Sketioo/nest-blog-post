@@ -11,6 +11,8 @@ import { User } from '../user.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from '../dtos/create-user.dto';
 import { PatchUserDto } from '../dtos/patch-user.dto';
+import { CreateManyUsersDto } from '../dtos/create-many-users.dto';
+import { UsersCreateManyProvider } from './users-create-many.provider';
 
 /**
  * Class to connect to Users table and performs business operation
@@ -27,6 +29,8 @@ export class UsersService {
     private readonly authService: AuthService,
     @InjectRepository(User)
     private readonly usersRepository: Repository<User>,
+
+    private readonly usersCreateManyProvider: UsersCreateManyProvider,
   ) {}
 
   public async create(createUserDto: CreateUserDto) {
@@ -192,5 +196,9 @@ export class UsersService {
       });
     }
     return merge;
+  }
+
+  async createMany(createManyUsersDto: CreateManyUsersDto) {
+    return this.usersCreateManyProvider.createMany(createManyUsersDto);
   }
 }
