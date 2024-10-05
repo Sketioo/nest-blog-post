@@ -22,7 +22,7 @@ export class PostsController {
 
   @Get(':userId?')
   getPosts(@Param('userId') userId: number, @Query() getPostsDto: GetPostsDto) {
-    console.log(getPostsDto);
+    // console.log(getPostsDto);
     return this.postsService.findAll(userId, getPostsDto);
   }
 
