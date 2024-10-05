@@ -1,3 +1,4 @@
+import { FindOneUserByEmailProvider } from './find-one-user-by-email.provider';
 import { AuthService } from 'src/auth/providers/auth.service';
 import {
   BadRequestException,
@@ -33,6 +34,7 @@ export class UsersService {
 
     private readonly usersCreateManyProvider: UsersCreateManyProvider,
     private readonly createUserProvider: CreateUserProvider,
+    private readonly findOneUserProvider: FindOneUserByEmailProvider,
   ) {}
 
   public async create(createUserDto: CreateUserDto) {
@@ -103,31 +105,6 @@ export class UsersService {
    * @param email The user email
    * @returns The user
    */
-  findOneByEmail(email: string) {
-    let user = undefined;
-
-    try {
-      user = this.usersRepository.findOneBy({ email: email });
-    } catch (error) {
-      console.log(error);
-      throw new RequestTimeoutException({
-        status_code: 408,
-        message: 'Cannot process this request, try again later',
-      });
-    }
-
-    if (!user) {
-      throw new BadRequestException({
-        status_code: 400,
-        message: 'User not found',
-      });
-    }
-
-    return {
-      name: user.name,
-      email: user.email,
-    };
-  }
 
   async update(id: number, patchUserDto: PatchUserDto) {
     let updateUser = undefined;
@@ -165,5 +142,9 @@ export class UsersService {
 
   async createMany(createManyUsersDto: CreateManyUsersDto) {
     return this.usersCreateManyProvider.createMany(createManyUsersDto);
+  }
+
+  async findOneByEmail(email: string): Promise<User> {
+    return await this.findOneUserProvider.findOneByEmail(email);
   }
 }
