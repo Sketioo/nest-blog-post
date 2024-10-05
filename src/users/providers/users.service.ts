@@ -13,6 +13,7 @@ import { CreateUserDto } from '../dtos/create-user.dto';
 import { PatchUserDto } from '../dtos/patch-user.dto';
 import { CreateManyUsersDto } from '../dtos/create-many-users.dto';
 import { UsersCreateManyProvider } from './users-create-many.provider';
+import { CreateUserProvider } from './create-user.provider';
 
 /**
  * Class to connect to Users table and performs business operation
@@ -31,47 +32,11 @@ export class UsersService {
     private readonly usersRepository: Repository<User>,
 
     private readonly usersCreateManyProvider: UsersCreateManyProvider,
+    private readonly createUserProvider: CreateUserProvider,
   ) {}
 
   public async create(createUserDto: CreateUserDto) {
-    let existingUser = undefined;
-    try {
-      existingUser = await this.usersRepository.findOne({
-        where: { email: createUserDto.email },
-      });
-    } catch (error) {
-      console.log(error);
-      throw new RequestTimeoutException(
-        {
-          status_code: 408,
-          message: 'Cannot process this request, try again later',
-        },
-        {
-          description: 'Error connecting to database',
-        },
-      );
-    }
-
-    if (existingUser) {
-      throw new BadRequestException({
-        status_code: 400,
-        message: 'User with that email already exists',
-      });
-    }
-
-    const user = this.usersRepository.create(createUserDto);
-
-    try {
-      return await this.usersRepository.save(user);
-    } catch (error) {
-      console.log(error);
-      throw new RequestTimeoutException({
-        status_code: 408,
-        message: 'Cannot process this request, try again later',
-      });
-    }
-
-    return user;
+    return this.createUserProvider.create(createUserDto);
   }
 
   /**
