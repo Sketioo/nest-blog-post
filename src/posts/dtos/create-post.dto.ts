@@ -2,7 +2,7 @@ import {
   IsArray,
   IsEnum,
   IsInt,
-  IsISO8601,
+  // IsISO8601,
   IsJSON,
   IsNotEmpty,
   IsOptional,
@@ -83,7 +83,6 @@ export class CreatePostDto {
   featuredImgUrl?: string;
 
   @ApiPropertyOptional({ example: '2022-01-01', description: 'Publish on' })
-  @IsISO8601()
   @IsOptional()
   publishOn?: Date;
 

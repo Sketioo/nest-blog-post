@@ -8,10 +8,11 @@ import { CreatePostDto } from '../dtos/create-post.dto';
 import { Repository } from 'typeorm';
 import { Post } from '../post.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { MetaOption } from 'src/meta-options/meta-option.entity';
 import { UsersService } from 'src/users/providers/users.service';
 import { TagsService } from 'src/tags/providers/tags.service';
 import { PatchPostDto } from '../dtos/patch-post.dto';
+import { GetPostsDto } from '../dtos/get-posts.dto';
+import { PaginationProvider } from 'src/common/pagination/provider/pagination.provider';
 
 @Injectable()
 export class PostsService {
@@ -22,22 +23,21 @@ export class PostsService {
     @InjectRepository(Post)
     private readonly postsRepository: Repository<Post>,
 
-    /**
-     * Inject metaOptionsRepository
-     */
-    @InjectRepository(MetaOption)
-    private readonly metaOptionsRepository: Repository<MetaOption>,
-
     private readonly usersService: UsersService,
     private readonly tagsService: TagsService,
+
+    private readonly paginationProvider: PaginationProvider,
   ) {}
-  public findAll() {
-    return this.postsRepository.find({
-      relations: {
-        author: true,
-        metaOptions: true,
+  public findAll(userId: number, postQuery: GetPostsDto): Promise<Post[]> {
+    const posts = this.paginationProvider.paginateQuery(
+      {
+        limit: postQuery.limit,
+        page: postQuery.page,
       },
-    });
+      this.postsRepository,
+    );
+
+    return posts;
   }
 
   public async create(@Body() createPostDto: CreatePostDto) {

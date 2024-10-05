@@ -1,4 +1,6 @@
 
 ###*
+GET http://localhost:8081/posts/1
+?limit=4
+&page=2
 
-GET http://localhost:8081/posts/1234

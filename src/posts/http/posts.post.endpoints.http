@@ -5,14 +5,14 @@ POST http://localhost:8081/posts
 Content-Type: application/json
 
 {
-  "title": "A Sample Post Title yoink",
+  "title": "A Sample Post Title 10",
   "postType": "post",
-  "slug": "sample-post-slug",
+  "slug": "sample-post-slug-10",
   "status": "draft",
   "content": "This is a sample post content.",
   "schema": "{ \"title\": \"Sample Schema\" }",
   "featuredImgUrl": "https://example.com/image.jpg",
-  "publishOn": "2024-10-01T12:00:00Z",
+  "publishOn": "2022-01-01",
   "tags": [1],
   "metaOptions":
     { "metaValue": "{\"sidebarEnabled\": true, \"footerActive\": true}" },

@@ -7,6 +7,7 @@ import { MetaOption } from 'src/meta-options/meta-option.entity';
 import { MetaOptionsModule } from 'src/meta-options/meta-options.module';
 import { UsersModule } from 'src/users/users.module';
 import { TagsModule } from 'src/tags/tags.module';
+import { PaginationModule } from 'src/common/pagination/pagination.module';
 
 @Module({
   exports: [PostsService],
@@ -15,6 +16,7 @@ import { TagsModule } from 'src/tags/tags.module';
     MetaOptionsModule,
     UsersModule,
     TagsModule,
+    PaginationModule,
   ],
   controllers: [PostsController],
   providers: [PostsService],

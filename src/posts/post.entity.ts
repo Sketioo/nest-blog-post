@@ -84,6 +84,9 @@ export class Post {
   })
   metaOptions?: MetaOption;
 
-  @ManyToOne(() => User, (user) => user.posts)
+  @ManyToOne(() => User, (user) => user.posts, {
+    cascade: true,
+    eager: true,
+  })
   author: User;
 }
