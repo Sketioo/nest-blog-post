@@ -1,7 +1,7 @@
 export interface Paginated<T> {
   data: T[];
   meta: {
-    itermPerPage: number;
+    itemsPerPage: number;
     totalItems: number;
     currentPage: number;
     totalPages: number;

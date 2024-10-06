@@ -26,6 +26,8 @@ async function bootstrap() {
     }),
   );
 
+  console.log(process.env.JWT_SECRET);
+
   const config = new DocumentBuilder()
     .setTitle('NestJs - Blog app API')
     .setDescription('API for blog app')

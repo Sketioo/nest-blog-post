@@ -41,7 +41,7 @@ export class PaginationProvider {
     const finalResponse: Paginated<T> = {
       data: results,
       meta: {
-        itermPerPage: paginationQuery.limit,
+        itemsPerPage: paginationQuery.limit,
         totalItems: totalItems,
         currentPage: paginationQuery.page,
         totalPages: totalPages,
